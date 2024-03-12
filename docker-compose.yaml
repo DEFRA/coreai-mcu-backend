@@ -1,0 +1,19 @@
+services:
+  coreai-mcu-backend:
+    build:
+      context: .
+      target: production
+    image: coreai-mcu-backend
+    container_name: coreai-mcu-backend
+    depends_on:
+      - coreai-mcu-backend-postgres
+    environment:
+      APPINSIGHTS_CLOUDROLE: coreai-mcu-backend-local
+      APPINSIGHTS_CONNECTIONSTRING: ${APPINSIGHTS_CONNECTIONSTRING}
+
+  coreai-mcu-backend-postgres:
+    image: postgres:11.4-alpine
+    environment:
+      POSTGRES_DB: coreai-mcu-backend
+      POSTGRES_PASSWORD: ppp
+      POSTGRES_USERNAME: postgres
